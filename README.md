@@ -17,6 +17,11 @@
 
 ## Historial de cambios
 
+### 06/04/2026
+
+* Formulacion de bloques de excepciones
+* Formulacion de bloques con cursores
+
 ### 01/04/2026
 
 * Formulacion de bloque anonimo PL/SQL
