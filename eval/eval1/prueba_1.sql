@@ -89,9 +89,46 @@ BEGIN
 
         DBMS_OUTPUT.PUT_LINE('SE ACTUALIZO UN INCIDENTE');
     END LOOP;
-    CLOSE horas_cursor;
+    CLOSE horas_cursor;}
 
     COMMIT; 
+
+--ejercicio3
+
+CREATE OR REPLACE TYPE incidente_obj as objet (
+    incidente_id NUMBER,
+    descripcion VARCHAR2(4000),
+    MEMBER FUNCTION get_reporte RETURN VARCHAR2
+);
+/
+
+CREATE OR REPLACE TYPE BODY incidente_obj AS
+    MEMBER FUNCTION get_reporte RETURN VARCHAR2 IS
+    BEGIN
+        RETURN self.incidente_id;
+    END;
+END;
+/
+
+CREATE TABLE incidentes_tabla_obj OF incidente_obj;
+
+insert into incidentes_tabla_obj
+SELECT incidente_obj(incidente_id, descripcion) FROM Incidentes;
+
+SET SERVEROUTPUT ON;
+DECLARE
+    CURSOR c_incidentes IS SELECT VALUE(i) FROM incidentes_tabla_obj i;
+    v_inc incidente_obj;
+BEGIN
+        OPEN c_incidentes;
+        LOOP
+        FETCH c_incidentes INTO v_inc;
+        EXIT WHEN c_incidentes%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE(v_inc.get_reporte());
+        END LOOP;
+        CLOSE c_incidentes;
+END;
+/
 
         
 
