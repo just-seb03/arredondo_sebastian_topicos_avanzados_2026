@@ -12,7 +12,7 @@ CREATE OR REPLACE PACKAGE gestion_clientes AS
 END gestion_clientes;
 /
 
-CREATE OR REPLACE PACKAGE BODY gestion_clientes AS
+CREATE OR REPLACE gestion_clientes AS
 	PROCEDURE registrar_cliente(
     	p_cliente_id IN NUMBER,
     	p_nombre IN VARCHAR2,
